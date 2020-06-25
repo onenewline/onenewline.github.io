@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="login.css">
+<link rel="stylesheet" href="style.css" />
+<title>Login</title>
+</head>
+<body>
+<div class="container1">
+     <div class="login-wrapper">
+         <div class="header">Login</div>
+         <div class="form">
+         <form action="#" method="post" onsubmit="check()" name=lo>
+         <input type=text name=username class="input" placeholder="username" id="users">
+         <input type=password name=password class="input" placeholder="password" id="passes">
+         <div class="btn"><input class="subinput" type="submit" name="Login" value="Login">
+         </div>
+         </form>
+         </div>
+         <div class="msg">
+         没有账号？<a href="#">Sign up</a>
+         </div>  
+         <div class="font">登录即可查看全部信息</div>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script>
+         function check(){
+             var len=0;
+            $.ajax({
+                type:'GET',
+                url:'./test.json',
+                success: function(data){
+                    len = data.length-1;
+                    $.each(data,function(i,info){
+                        if($('#users').val()==info.user){
+                            if($('#passes').val()==info.password){
+                                console.log(info.id);
+                                window.location.href="main.html";
+                                return false;
+                            }else{
+                                alert("密码错误");
+                               return false;
+                            }
+                           
+                        }else{ 
+                            if(i<len){
+                                i++;
+                            }else{
+                                alert("账号错误");
+                            } 
+                          
+                        }
+                        } 
+                    )
+                }
+                });
+         }
+</script>
